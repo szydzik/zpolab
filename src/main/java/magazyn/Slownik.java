@@ -15,11 +15,17 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import lombok.*;
 
 /**
  *
  * @author xxbar
  */
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Slownik {
 
     public enum Typ {
@@ -33,19 +39,11 @@ public class Slownik {
     private String OPIS;
     private Integer NR_ODPADU;
 
+    @Getter
     private static String[] propTym = {"GRUPA", "PODGRUPA", "RODZAJ", "TYP", "OPIS", "NR_ODPADU"};
+    @Getter
     private static String[] colTym = {"GRUPA", "PODGRUPA", "RODZAJ", "TYP", "OPIS", "NR_ODPADU"};
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
-//    private String DATAD;
-
-    public Slownik(Integer GRUPA, Integer PODGRUPA, Integer RODZAJ, Typ TYP, String OPIS, Integer NR_ODPADU) {
-        this.GRUPA = GRUPA;
-        this.PODGRUPA = PODGRUPA;
-        this.RODZAJ = RODZAJ;
-        this.TYP = TYP;
-        this.OPIS = OPIS;
-        this.NR_ODPADU = NR_ODPADU;
-    }
 
     public Slownik(String GRUPA, String PODGRUPA, String RODZAJ, String TYP, String OPIS, String NR_ODPADU) {
         this.GRUPA = Integer.parseInt(GRUPA.replaceAll("[^\\d.]", ""));
@@ -104,69 +102,7 @@ public class Slownik {
 
     }
 
-    public static String[] getPropTym() {
-        return propTym;
-    }
-
-    public static void setPropTym(String[] propTym) {
-        Slownik.propTym = propTym;
-    }
-
-    public static String[] getColTym() {
-        return colTym;
-    }
-
-    public static void setColTym(String[] colTym) {
-        Slownik.colTym = colTym;
-    }
-
-    public Integer getGRUPA() {
-        return GRUPA;
-    }
-
-    public void setGRUPA(Integer GRUPA) {
-        this.GRUPA = GRUPA;
-    }
-
-    public Integer getPODGRUPA() {
-        return PODGRUPA;
-    }
-
-    public void setPODGRUPA(Integer PODGRUPA) {
-        this.PODGRUPA = PODGRUPA;
-    }
-
-    public Integer getRODZAJ() {
-        return RODZAJ;
-    }
-
-    public void setRODZAJ(Integer RODZAJ) {
-        this.RODZAJ = RODZAJ;
-    }
-
-    public Typ getTYP() {
-        return TYP;
-    }
-
-    public void setTYP(Typ TYP) {
-        this.TYP = TYP;
-    }
-
-    public String getOPIS() {
-        return OPIS;
-    }
-
-    public void setOPIS(String OPIS) {
-        this.OPIS = OPIS;
-    }
-
-    public Integer getNR_ODPADU() {
-        return NR_ODPADU;
-    }
-
-    public void setNR_ODPADU(Integer NR_ODPADU) {
-        this.NR_ODPADU = NR_ODPADU;
-    }
+ 
 
     public static List<Slownik> Open(Path path) {
 
