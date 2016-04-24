@@ -65,44 +65,36 @@ public class Magazynp {
     }
 
     public Magazynp(String row) {
-
         Scanner scan = new Scanner(row).useDelimiter(";");
 
         NR_MAG = scan.hasNextInt() ? scan.nextInt() : null;
         if (NR_MAG == null) {
             scan.next();
         }
-
         NR_KARTY = new NumerKarty(scan.hasNext() ? scan.next() : null);
         if (NR_KARTY == null) {
             scan.next();
         }
-
         NR_ODPADU = scan.hasNextInt() ? scan.nextInt() : null;
         if (NR_ODPADU == null) {
             scan.next();
         }
-
         NR_KLIENTA = scan.hasNextInt() ? scan.nextInt() : null;
         if (NR_KLIENTA == null) {
             scan.next();
         }
-
         FIRMA = scan.hasNextInt() ? scan.nextInt() : null;
         if (FIRMA == null) {
             scan.next();
         }
-
         JEDN = scan.hasNext() ? scan.next() : null;
         if (JEDN == null) {
             scan.next();
         }
-
         this.MASA = scan.hasNext() ? Double.parseDouble(scan.next().replaceAll("[^\\d.]", "")) : null;
         if (MASA == null) {
             scan.next();
         }
-
         try {
              this.DATAD = scan.hasNext() ? new Date(DATE_FORMAT.parse(scan.next()).getTime()) : null;
         } catch (ParseException ex) {
