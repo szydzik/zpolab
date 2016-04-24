@@ -14,7 +14,6 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -26,11 +25,10 @@ import lombok.*;
  *
  * @author xxbar
  */
-@Setter
-@Getter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Magazynp {
 
     public Integer NR_MAG;

@@ -21,11 +21,11 @@ import lombok.*;
  *
  * @author xxbar
  */
-@Setter
-@Getter
-@ToString
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@EqualsAndHashCode
 public class Slownik {
 
     public enum Typ {
@@ -101,8 +101,6 @@ public class Slownik {
         NR_ODPADU = scan.hasNextInt() ? scan.nextInt() : null;
 
     }
-
- 
 
     public static List<Slownik> Open(Path path) {
 
