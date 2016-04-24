@@ -23,39 +23,29 @@ import javax.swing.table.AbstractTableModel;
 public class DataModel<T> extends AbstractTableModel {
 
     private List<T> rows;
-
-    private Class<T> clazz;
-    
     private String[] colNames;
     private String[] propNames;
 
     public static class Accessors {
-
         public Method read; //getter
         public Method write;//seter
     }
     private Map<String, Accessors> accMap = new HashMap<>();
 
-    public DataModel() {
-        
+    public DataModel() { 
     }
     
     public DataModel(List<T> objsList, String[] colNames, String[] propNames) {
-
         this.rows = objsList;
         this.colNames = new String[colNames.length];
         System.arraycopy(colNames, 0, this.colNames, 0, colNames.length);
-
         this.propNames = new String[propNames.length];
         System.arraycopy(propNames, 0, this.propNames, 0, propNames.length);
-
         //Inicjacja mapy akcerorow. Na razie gettery i settery sa rowne null
         for (String propName : propNames) {
             accMap.put(propName, new Accessors());
         }
-
         Class klas = objsList.get(0).getClass();
-
         try {
             PropertyDescriptor[] pd = Introspector.getBeanInfo(klas, klas.getSuperclass()).getPropertyDescriptors();
             for (PropertyDescriptor desc : pd) {
@@ -70,9 +60,7 @@ public class DataModel<T> extends AbstractTableModel {
 //                    System.out.println("acc.write=" + acc.write);
                 }
             }
-
             fireTableDataChanged();
-
         } catch (IntrospectionException exc) {
             System.out.println("Bląd: \n" + exc);
         }
@@ -90,30 +78,23 @@ public class DataModel<T> extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-
         T obj = rows.get(rowIndex);//ziarno
         Object retVal = null;
         // Wywolanie gettera przez reffleksje
         try {
-
             Method getter = accMap.get(propNames[columnIndex]).read;
-
             retVal = getter.invoke(obj);
-
         } catch (java.lang.NullPointerException xx) {
             System.out.println("Brak gettera dla " + propNames[columnIndex]);
             return (Object) " ";
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exc) {
             System.out.println("Błąd: \n" + exc);
         }
-
         return retVal;
-
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-
         try {
             if (getValueAt(0, columnIndex).getClass() != null) {
                 return getValueAt(0, columnIndex).getClass();
@@ -123,9 +104,7 @@ public class DataModel<T> extends AbstractTableModel {
         } catch (java.lang.NullPointerException ex) {
             System.out.println("java.lang.NullPointerException  columnIndex=" + columnIndex);
             return (new Object()).getClass();
-
         }
-
     }
 
     @Override
@@ -160,9 +139,4 @@ public class DataModel<T> extends AbstractTableModel {
     public List<T> getRows() {
         return rows;
     }
-    
-
-        
-
-
 }
