@@ -14,23 +14,52 @@ import javax.swing.JTextField;
  *
  * @author Bartek
  */
-public class Verifier extends InputVerifier{
+public class Verifier extends InputVerifier {
 
-    Boolean field1=false, field2=false;
-    
+    Boolean allowZero;
+    String message;
+    Boolean valueToReturn;
+
+    public Verifier(Boolean allowZero) {
+        this.allowZero = allowZero;
+        this.message = new String();
+        this.valueToReturn = false;
+    }
+
     @Override
     public boolean verify(JComponent input) {
         String text = ((JTextField) input).getText();
         try {
-            Double.parseDouble(text);
-            return true;
+            Double d = Double.parseDouble(text);
+//            valid(input);
+            if (!allowZero) {
+                if (d == 0) {
+                    invalid(input);
+                } else {
+                    valid(input);
+                }
+            } else {
+                valid(input);
+            }
         } catch (NumberFormatException e) {
             System.out.println("błąd: " + e);
-            return false;
+            invalid(input);
+//            return false;
         }
-    
+
+        return valueToReturn;
     }
-    
+
+    private void valid(JComponent input) {
+        input.setBackground(Color.green);
+        valueToReturn = true;
+    }
+
+    private void invalid(JComponent input) {
+        input.setBackground(Color.red);
+        valueToReturn = false;
+    }
+
     public boolean validacja(javax.swing.JTextField textField, javax.swing.JLabel label) {
         if (this.verify(textField)) {
             textField.setBackground(Color.green);
@@ -38,7 +67,7 @@ public class Verifier extends InputVerifier{
 
             if ((Double.parseDouble(textField.getText()) > 1000) || (Double.parseDouble(textField.getText()) < -30)) {
                 textField.setBackground(Color.yellow);
-                label.setText("Liczba poza zakresem !");
+
                 return false;
             }
 
@@ -59,13 +88,5 @@ public class Verifier extends InputVerifier{
         }
         return true;
     }
-    
-        void check(javax.swing.JButton button) {
-        if ((field1 && field2) == true) {
-            button.setEnabled(true);
-        } else {
-            button.setEnabled(false);
-        }
-    }
-    
+
 }

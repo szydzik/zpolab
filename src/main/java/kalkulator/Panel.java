@@ -16,14 +16,13 @@ public class Panel extends javax.swing.JFrame {
     /**
      * Creates new form Panel
      */
-    Verifier verifier = new Verifier();
+//    Verifier verifier = new Verifier();
     private Operator op = Operator.PLUS;
 
 //    Boolean field1, field2;
     public Panel() {
         setTitle("Kalkulator");
         initComponents();
-        jButton1.setEnabled(false);
         operator.setModel(new DefaultComboBoxModel(Operator.values()));
     }
 
@@ -58,21 +57,13 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
-            }
-        });
+        jTextField1.setInputVerifier(new Verifier(true));
 
         jLabel1.setText("Liczba 1");
 
         jLabel2.setText("Liczba 2");
 
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
-            }
-        });
+        jTextField2.setInputVerifier(new Verifier(false));
 
         operator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,19 +138,9 @@ public class Panel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        verifier.field1 = verifier.validacja(jTextField1, jLabel_error1);
-        verifier.check(jButton1);
-    }//GEN-LAST:event_jTextField1KeyReleased
-
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        verifier.field2 = verifier.validacja(jTextField2, jLabel_error1);
-        verifier.check(jButton1);
-    }//GEN-LAST:event_jTextField2KeyReleased
-
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (verifier.verify(jTextField1) && verifier.verify(jTextField2)) {
+//        if (verifier.verify(jTextField1) && verifier.verify(jTextField2)) {
             double a1 = Double.parseDouble(jTextField1.getText());
             double a2 = Double.parseDouble(jTextField2.getText());
             double result = 0;
@@ -188,9 +169,7 @@ public class Panel extends javax.swing.JFrame {
             }
 
             jTextField3.setText(String.valueOf(result));
-        } else {
-            JOptionPane.showMessageDialog(null, "Błąd !");
-        }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void operatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operatorActionPerformed

@@ -5,10 +5,6 @@
  */
 package magazyn;
 
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -82,7 +78,6 @@ public class MagazynJFrame extends javax.swing.JFrame {
         });
 
         deleteButton.setText("Usuń");
-        deleteButton.setEnabled(false);
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -100,20 +95,21 @@ public class MagazynJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(showButton)
-                .addGap(36, 36, 36)
-                .addComponent(openButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(openButton)
-                .addGap(18, 18, 18)
-                .addComponent(deleteButton)
-                .addGap(96, 96, 96))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(showButton)
+                        .addGap(36, 36, 36)
+                        .addComponent(openButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(openButton)
+                        .addGap(171, 171, 171))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +133,7 @@ public class MagazynJFrame extends javax.swing.JFrame {
         int selected = jTable.getSelectedRow() >= 0 ? jTable.convertRowIndexToModel(jTable.getSelectedRow()) : -1;
         if (selected >= 0) {
             Object obj = model.getRow(selected);
-            System.out.println(obj);
+            JOptionPane.showMessageDialog(this, obj.toString());
         } else {
             JOptionPane.showMessageDialog(this, "Proszę zaznaczyć pozycję.");
         }
@@ -162,18 +158,18 @@ public class MagazynJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_openButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-//        int selected = magazynpTable.getSelectedRow(); // wczytanie zaznaczonego wiersza tabeli;
-//        System.out.println("selected edytuj1 = " + selected);
-//        if (selected >= 0) {
-//            selected = magazynpTable.convertRowIndexToModel(selected);
-//            int result = JOptionPane.showOptionDialog(this, "Czy jesteś pewien, że chcesz usunąć zaznaczony element?", "Pytanie", JOptionPane.YES_NO_OPTION,
-//                JOptionPane.INFORMATION_MESSAGE, null, null, null);
-//            if (result == JOptionPane.YES_OPTION) {
-//                model.removePhone(selected);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Proszę zaznaczyć pozycję do usunięcia");
-//        }
+        int selected = jTable.getSelectedRow(); // wczytanie zaznaczonego wiersza tabeli;
+        System.out.println("selected edytuj1 = " + selected);
+        if (selected >= 0) {
+            selected = jTable.convertRowIndexToModel(selected);
+            int result = JOptionPane.showOptionDialog(this, "Czy jesteś pewien, że chcesz usunąć zaznaczony element?", "Pytanie", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            if (result == JOptionPane.YES_OPTION) {
+                model.remove(selected);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Proszę zaznaczyć pozycję do usunięcia");
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void openButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButton1ActionPerformed
