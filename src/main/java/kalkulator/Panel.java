@@ -51,19 +51,20 @@ public class Panel extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Oblicz");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jTextField1.setInputVerifier(new Verifier(true));
+        jTextField1.setInputVerifier(new Verifier(true, jButton1));
 
         jLabel1.setText("Liczba 1");
 
         jLabel2.setText("Liczba 2");
 
-        jTextField2.setInputVerifier(new Verifier(false));
+        jTextField2.setInputVerifier(new Verifier(false, jButton1));
 
         operator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

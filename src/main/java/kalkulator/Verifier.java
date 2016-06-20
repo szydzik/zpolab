@@ -19,11 +19,16 @@ public class Verifier extends InputVerifier {
     Boolean allowZero;
     String message;
     Boolean valueToReturn;
+    JComponent button;
 
-    public Verifier(Boolean allowZero) {
+    private static Boolean firstV = false;
+    private static Boolean secondV = false;
+
+    public Verifier(Boolean allowZero, JComponent button) {
         this.allowZero = allowZero;
         this.message = new String();
         this.valueToReturn = false;
+        this.button = button;
     }
 
     @Override
@@ -52,41 +57,49 @@ public class Verifier extends InputVerifier {
 
     private void valid(JComponent input) {
         input.setBackground(Color.green);
+
         valueToReturn = true;
+//        if (input.getName().equals("jTextfield1")) Verifier.firstV = valueToReturn;
+//        if (input.getName().equals("jTextfield2")) Verifier.secondV = valueToReturn;
+
+//        if (firstV && secondV) button.setEnabled(true);
+        button.setEnabled(true);
     }
 
     private void invalid(JComponent input) {
         input.setBackground(Color.red);
+        button.setEnabled(false);
         valueToReturn = false;
+
     }
-
-    public boolean validacja(javax.swing.JTextField textField, javax.swing.JLabel label) {
-        if (this.verify(textField)) {
-            textField.setBackground(Color.green);
-            label.setText("");
-
-            if ((Double.parseDouble(textField.getText()) > 1000) || (Double.parseDouble(textField.getText()) < -30)) {
-                textField.setBackground(Color.yellow);
-
-                return false;
-            }
-
-            if (Double.parseDouble(textField.getText()) == 0) {
-                textField.setBackground(Color.yellow);
-                label.setText("Nie mozna dzielić przez 0");
-                return false;
-            }
-
-        } else if (textField.getText().isEmpty()) {
-            textField.setBackground(Color.red);
-            label.setText("Pole nie może być puste !");
-            return false;
-        } else {
-            textField.setBackground(Color.red);
-            label.setText("Zła wartość");
-            return false;
-        }
-        return true;
-    }
+//
+//    public boolean validacja(javax.swing.JTextField textField, javax.swing.JLabel label) {
+//        if (this.verify(textField)) {
+//            textField.setBackground(Color.green);
+//            label.setText("");
+//
+//            if ((Double.parseDouble(textField.getText()) > 1000) || (Double.parseDouble(textField.getText()) < -30)) {
+//                textField.setBackground(Color.yellow);
+//
+//                return false;
+//            }
+//
+//            if (Double.parseDouble(textField.getText()) == 0) {
+//                textField.setBackground(Color.yellow);
+//                label.setText("Nie mozna dzielić przez 0");
+//                return false;
+//            }
+//
+//        } else if (textField.getText().isEmpty()) {
+//            textField.setBackground(Color.red);
+//            label.setText("Pole nie może być puste !");
+//            return false;
+//        } else {
+//            textField.setBackground(Color.red);
+//            label.setText("Zła wartość");
+//            return false;
+//        }
+//        return true;
+//    }
 
 }
